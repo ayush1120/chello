@@ -1,6 +1,67 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, User, Send, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { Bot, User, Send, ChevronDown, ChevronUp, Sparkles, Activity, Search, Brain, CheckCircle } from 'lucide-react';
 import chatData from '../data/chat_sequence.json';
+
+const InternalThoughtTimeline = ({ simulation }) => {
+    // Normalize to array
+    const steps = Array.isArray(simulation) ? simulation : [simulation];
+
+    return (
+        <div className="ml-2 mt-3 pl-4 border-l-2 border-purple-200 space-y-4">
+            {steps.map((step, idx) => {
+                // Parse log: "Agent Name: Action/Content"
+                const parts = step.log.split(': ');
+                const agentName = parts.length > 1 ? parts[0] : 'System';
+                const content = parts.length > 1 ? parts.slice(1).join(': ') : step.log;
+
+                // Determine styling based on status/agent
+                let icon = <Activity size={14} />;
+                let badgeColor = 'bg-slate-100 text-slate-600';
+
+                if (step.status.includes('searching') || agentName.includes('Web Surfer')) {
+                    icon = <Search size={14} />;
+                    badgeColor = 'bg-sky-100 text-sky-700 border-sky-200';
+                } else if (step.status.includes('clarifying') || agentName.includes('Clarifier')) {
+                    icon = <Brain size={14} />;
+                    badgeColor = 'bg-amber-100 text-amber-700 border-amber-200';
+                } else if (step.status.includes('loop') || agentName.includes('Loop')) {
+                    icon = <CheckCircle size={14} />;
+                    badgeColor = 'bg-emerald-100 text-emerald-700 border-emerald-200';
+                }
+
+                return (
+                    <div key={idx} className="relative animate-in fade-in slide-in-from-left-2 duration-300" style={{ animationDelay: `${idx * 150}ms` }}>
+                        {/* Timeline Connector (if not last) */}
+                        {idx < steps.length - 1 && (
+                            <div className="absolute left-[7px] top-6 bottom-[-16px] w-[2px] bg-purple-100"></div>
+                        )}
+
+                        <div className="bg-white/80 border border-purple-100 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
+                            {/* Header: Badge & Timer */}
+                            <div className="flex items-center justify-between mb-2">
+                                <div className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border ${badgeColor}`}>
+                                    {icon}
+                                    {step.status.replace(/_/g, ' ')}
+                                </div>
+                                <span className="text-[10px] font-mono text-slate-400">
+                                    {step.system_delay_ms}ms
+                                </span>
+                            </div>
+
+                            {/* Content */}
+                            <div className="text-xs">
+                                <span className="font-bold text-slate-700 block mb-1">{agentName}</span>
+                                <p className="text-slate-600 font-mono leading-relaxed bg-slate-50 p-2 rounded border border-slate-100">
+                                    {content}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+};
 
 const ChatInterface = () => {
     // State to track which message has its "thoughts" expanded
@@ -14,7 +75,7 @@ const ChatInterface = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, []);
+    }, [expandedThoughts]); // Scroll when thoughts expand too
 
     const toggleThoughts = (turnId) => {
         setExpandedThoughts(prev => ({
@@ -64,33 +125,19 @@ const ChatInterface = () => {
                                         <div className="mt-2 flex justify-end">
                                             <button
                                                 onClick={() => toggleThoughts(turn.turn_id)}
-                                                className="flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-purple-600 transition-colors px-2 py-1 rounded-md hover:bg-purple-50"
+                                                className="flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-purple-600 transition-colors px-3 py-1.5 rounded-full hover:bg-purple-50 border border-transparent hover:border-purple-100"
                                             >
                                                 <Sparkles size={12} />
-                                                {expandedThoughts[turn.turn_id] ? 'Hide Internals' : 'View Internals'}
+                                                {expandedThoughts[turn.turn_id] ? 'Hide Details' : 'View Internals'}
                                                 {expandedThoughts[turn.turn_id] ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
                                             </button>
                                         </div>
                                     )}
                                 </div>
 
-                                {/* Internal Thoughts (Expandable) */}
+                                {/* Internal Thoughts (Enhanced Timeline) */}
                                 {expandedThoughts[turn.turn_id] && turn.processing_simulation && (
-                                    <div className="ml-2 rounded-xl bg-slate-50/80 border border-slate-200/60 p-3 text-xs font-mono text-slate-600 shadow-inner animate-in fade-in slide-in-from-top-2 duration-200">
-                                        <div className="flex items-center gap-2 mb-1 border-b border-slate-200 pb-1">
-                                            <span className={`w-2 h-2 rounded-full ${turn.processing_simulation.status === 'loop_complete' ? 'bg-green-400' :
-                                                    turn.processing_simulation.status.includes('searching') ? 'bg-blue-400' :
-                                                        'bg-amber-400'
-                                                }`} />
-                                            <span className="uppercase tracking-wider text-[10px] text-slate-400 font-bold">
-                                                {turn.processing_simulation.status.replace('_', ' ')}
-                                            </span>
-                                            <span className="ml-auto text-[10px] text-slate-400">
-                                                {turn.processing_simulation.system_delay_ms}ms
-                                            </span>
-                                        </div>
-                                        <p>{turn.processing_simulation.log}</p>
-                                    </div>
+                                    <InternalThoughtTimeline simulation={turn.processing_simulation} />
                                 )}
                             </div>
                         </div>
