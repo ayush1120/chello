@@ -1,4 +1,4 @@
-# Chello - Google ADK Agent
+# Challo - Google ADK Agent
 
 This repository contains a basic Python agent using the Google Agent Development Kit (ADK).
 

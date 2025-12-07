@@ -1,7 +1,8 @@
 {
   "meta": {
     "session_name": "L4-L5 Herniation Anxiety Flow",
-    "version": "3.0",
+    "version": "3.1",
+    "user_name": "Ayush",
     "user_profile": "High Anxiety, Statistical Skeptic",
     "total_turns": 11
   },
@@ -15,7 +16,7 @@
         "log": "Loop Agent: Detected distress. No context available. Triggering Asker for info gathering.",
         "system_delay_ms": 1000
       },
-      "asker": "I am sorry to hear that. I am here to help you work through whatever is going on. Can you tell me a little more about what is weighing on your mind?"
+      "asker": "I am sorry to hear that, Ayush. I am here to help you work through whatever is going on. Can you tell me a little more about what is weighing on your mind?"
     },
     {
       "turn_id": 2,
@@ -26,7 +27,7 @@
         "log": "Loop Agent: Detecting high emotional distress (Panic). Triggering Clarifier for empathy.",
         "system_delay_ms": 1200
       },
-      "asker": "I can hear how heavy this is weighing on you. Not sleeping is a sign your body is in high-alert mode. Before we talk about canceling, can you tell me: is it the surgery itself you are afraid of, or is it what happens *after* you wake up?"
+      "asker": "I can hear how heavy this is weighing on you, Ayush. Not sleeping is a sign your body is in high-alert mode. Before we talk about canceling, can you tell me: is it the surgery itself you are afraid of, or is it what happens *after* you wake up?"
     },
     {
       "turn_id": 3,
@@ -37,7 +38,7 @@
         "log": "Loop Agent: Step 1 (Enquiry) Complete. Root Cause = Fear of Botched Outcome/Paralysis.",
         "system_delay_ms": 1500
       },
-      "asker": "That is a terrifying image. No wonder you can't sleep if your brain keeps playing a movie of you being paralyzed. To be sure I understand—you are willing to endure the current pain because it feels safer than the *risk* of that paralysis?"
+      "asker": "That is a terrifying image, Ayush. No wonder you can't sleep if your brain keeps playing a movie of you being paralyzed. To be sure I understand—you are willing to endure the current pain because it feels safer than the *risk* of that paralysis?"
     },
     {
       "turn_id": 4,
@@ -48,7 +49,7 @@
         "log": "Web Surfer: Found 'Risk < 0.3%' | Clarifier: Contrast '0.3%' vs 'User Bias'.",
         "system_delay_ms": 4500
       },
-      "asker": "Reddit can be a dangerous place at 3 AM. It naturally amplifies the worst 1%. I’m looking at the actual medical data right now to balance those stories. Did you know that the risk of permanent serious nerve damage in this procedure is typically less than 0.3%? That means for every 1,000 people, 997 wake up fine."
+      "asker": "Reddit can be a dangerous place at 3 AM. It naturally amplifies the worst 1%. Ayush, I’m looking at the actual medical data right now to balance those stories. Did you know that the risk of permanent serious nerve damage in this procedure is typically less than 0.3%? That means for every 1,000 people, 997 wake up fine."
     },
     {
       "turn_id": 5,
@@ -59,7 +60,7 @@
         "log": "Clarifier Agent: User accepts data but rejects application. Action: Reframe Probability (Lottery Analogy).",
         "system_delay_ms": 2800
       },
-      "asker": "You are right. The risk is never zero. But let's look at the other side of that coin. If there is a 0.3% chance of a bad outcome, there is a 99.7% chance of the intended outcome. If I gave you a lottery ticket with a 99.7% chance of winning a million dollars, would you throw it away because you *might* lose?"
+      "asker": "You are right, Ayush. The risk is never zero. But let's look at the other side of that coin. If there is a 0.3% chance of a bad outcome, there is a 99.7% chance of the intended outcome. If I gave you a lottery ticket with a 99.7% chance of winning a million dollars, would you throw it away because you *might* lose?"
     },
     {
       "turn_id": 6,
@@ -70,7 +71,7 @@
         "log": "Web Surfer: Retrieved 'Relief Stories' | Clarifier: Extracted emotional hooks ('Shock', 'Joy').",
         "system_delay_ms": 4000
       },
-      "asker": "It feels like gambling because the fear is loud. Let's look at the 'winning' ticket. I found a thread of people discussing their 'Day 1' post-op. The most common comment isn't about pain—it's about *shock* that the leg pain is gone instantly. If that was your result—waking up and the leg pain is just *gone*—would that be worth the 0.3% risk?"
+      "asker": "It feels like gambling because the fear is loud. Let's look at the 'winning' ticket. I found a thread of people discussing their 'Day 1' post-op. The most common comment isn't about pain—it's about *shock* that the leg pain is gone instantly. Ayush, if that was your result—waking up and the leg pain is just *gone*—would that be worth the 0.3% risk?"
     },
     {
       "turn_id": 7,
@@ -81,7 +82,7 @@
         "log": "Loop Agent: Step 2 (Understanding) = YES. Step 3 (Detachment) = NO. Triggering Detachment Metaphor.",
         "system_delay_ms": 2000
       },
-      "asker": "That is the conflict. Your brain wants the result, but your gut is holding onto the fear. We need to separate them. Imagine your anxiety is a noisy radio playing in the corner of the room. You can hear it, it's annoying, but does it actually stop you from walking across the room to open a door?"
+      "asker": "That is the conflict. Your brain wants the result, but your gut is holding onto the fear. We need to separate them. Ayush, imagine your anxiety is a noisy radio playing in the corner of the room. You can hear it, it's annoying, but does it actually stop you from walking across the room to open a door?"
     },
     {
       "turn_id": 8,
@@ -103,7 +104,7 @@
         "log": "Loop Agent: Detachment check unstable. Triggering 'Future Pacing' visualization.",
         "system_delay_ms": 2200
       },
-      "asker": "That is a valid concern. Let's reprogram that moment. When you see the gown, instead of thinking 'This is the outfit of a victim,' I want you to think 'This is the uniform of an athlete about to win.' That gown means you are 2 hours away from walking pain-free. Can you reframe the gown that way?"
+      "asker": "That is a valid concern. Let's reprogram that moment. When you see the gown, instead of thinking 'This is the outfit of a victim,' I want you to think 'This is the uniform of an athlete about to win.' That gown means you are 2 hours away from walking pain-free. Can you reframe the gown that way, Ayush?"
     },
     {
       "turn_id": 10,
@@ -125,7 +126,7 @@
         "log": "Loop Agent: Detachment verified. Emotion separated from Action. END LOOP.",
         "system_delay_ms": 1000
       },
-      "asker": "Then you are ready. You have separated the signal from the noise. I believe you're going to be one of those 99.7% success stories. Go get your life back."
+      "asker": "Then you are ready, Ayush. You have separated the signal from the noise. I believe you're going to be one of those 99.7% success stories. Go get your life back."
     }
   ]
 }
