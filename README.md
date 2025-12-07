@@ -1,37 +1,37 @@
 # Challo - Google ADK Agent
 
-This repository contains a basic Python agent using the Google Agent Development Kit (ADK).
+"Challo" (Let's Go!) is a demo agent Application using the Google Agent Development Kit.
 
-## Setup
+## Quick Start
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <repository_url>
-    cd chello
-    ```
+### 1. Run the User Interface (UI)
+We have provided a simple script to get you started immediately.
 
-2.  **Create a virtual environment:**
+```bash
+./run_ui.sh
+```
+*This will install dependencies (if needed) and start the local development server at `http://localhost:5173`.*
+
+### 2. Run the Backend Agent (Optional)
+If you are developing the Python backend:
+
+1.  **Set up the environment**:
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate
-    ```
-
-3.  **Install dependencies:**
-    ```bash
     pip install -r requirements.txt
     ```
 
-4.  **Set up API Keys:**
-    You will likely need a Google Cloud Project and API keys.
-    Export them as environment variables:
+2.  **Run the agent**:
     ```bash
-    export GOOGLE_API_KEY="your_api_key_here"
-    export PROJECT_ID="your_project_id"
+    # Ensure you have GOOGLE_API_KEY set in your environment
+    export GOOGLE_API_KEY="your-api-key"
+    python main.py
     ```
 
-## Running the Agent
+## Project Structure
 
-Run the main script:
-```bash
-python main.py
-```
+- `ui/`: React frontend (Vite + Tailwind CSS)
+    - `src/components/ChatInterface.jsx`: Main chat logic with "Presentation Mode" and "Timeline View".
+    - `public/ai_studio_code.json`: Conversation data (Editable).
+- `main.py`: Python entry point for the ADK agent.
