@@ -66,8 +66,12 @@ const InternalThoughtTimeline = ({ simulation }) => {
 const ChatInterface = () => {
     // State to track which message has its "thoughts" expanded
     const [expandedThoughts, setExpandedThoughts] = useState({});
+    // Presentation Mode: Track current step (0 to length-1)
+    const [currentStep, setCurrentStep] = useState(0);
     const messagesEndRef = useRef(null);
     const [input, setInput] = useState('');
+
+    const totalSteps = chatData.chat_sequence.length;
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -75,7 +79,24 @@ const ChatInterface = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [expandedThoughts]); // Scroll when thoughts expand too
+    }, [expandedThoughts, currentStep]);
+
+    // Key Binding Listener for Presentation Mode
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            // Only trigger if not typing in an input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            if (e.key.toLowerCase() === 'd' || e.key === 'ArrowRight') {
+                setCurrentStep(prev => Math.min(prev + 1, totalSteps - 1));
+            } else if (e.key.toLowerCase() === 'a' || e.key === 'ArrowLeft') {
+                setCurrentStep(prev => Math.max(prev - 1, 0));
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [totalSteps]);
 
     const toggleThoughts = (turnId) => {
         setExpandedThoughts(prev => ({
@@ -84,20 +105,31 @@ const ChatInterface = () => {
         }));
     };
 
+    // Slice data for presentation
+    const visibleTurns = chatData.chat_sequence.slice(0, currentStep + 1);
+
     return (
         <div className="flex flex-col h-full relative">
             {/* Header */}
             <div className="h-16 px-8 flex items-center justify-between border-b border-white/20 bg-white/10 backdrop-blur-md sticky top-0 z-10">
                 <div>
                     <h2 className="text-lg font-semibold text-slate-700">Asker Agent</h2>
-                    <p className="text-xs text-purple-600 font-mono">Session: {chatData.meta.session_name}</p>
+                    <div className="flex items-center gap-3">
+                        <p className="text-xs text-purple-600 font-mono">Session: {chatData.meta.session_name}</p>
+                        <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
+                            Turn {currentStep + 1} / {totalSteps}
+                        </span>
+                    </div>
+                </div>
+                <div className="text-[10px] text-slate-400 font-mono hidden md:block">
+                    Press 'A' for Prev • 'D' for Next
                 </div>
             </div>
 
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-6 space-y-8 scroll-smooth">
-                {chatData.chat_sequence.map((turn) => (
-                    <div key={turn.turn_id} className="flex flex-col gap-6">
+                {visibleTurns.map((turn) => (
+                    <div key={turn.turn_id} className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
                         {/* User Message */}
                         <div className="flex gap-4 ml-auto flex-row-reverse max-w-3xl">

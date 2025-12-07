@@ -1,49 +1,120 @@
 {
   "meta": {
-    "session_name": "Spine Surgery Anxiety Demo",
-    "version": "1.1",
-    "description": "Demo sequence simulating agent architecture. 'Asker' key represents the final output to the user."
+    "session_name": "L4-L5 Herniation Anxiety Flow",
+    "version": "2.1",
+    "user_profile": "High Anxiety, Statistical Skeptic",
+    "total_turns": 10
   },
   "chat_sequence": [
     {
       "turn_id": 1,
-      "user_message": "I know I need the surgery, but I'm paralyzed. I keep imagining waking up and not being able to move my legs. I've read so many horror stories.",
+      "turn_name": "The Opening",
+      "user_message": "I need help. I have a microdiscectomy scheduled for Thursday for my L4-L5, but I think I’m going to cancel. I haven't slept in three days.",
       "processing_simulation": {
-        "status": "searching_web",
-        "log": "Web Surfer Agent searching: 'L4-L5 microdiscectomy success stories'...",
-        "system_delay_ms": 4000
+        "status": "analyzing_intent",
+        "log": "Loop Agent: Detecting high emotional distress. Triggering Clarifier for empathy.",
+        "system_delay_ms": 1200
       },
-      "asker": "It is completely normal to be scared. The internet is very good at amplifying the 'horror stories' because those are the people who post the most.\n\nHowever, I’ve been looking at the actual patient data to see what is most likely to happen. Did you know that on patient forums, the most common thing people report upon waking up is *not* pain, but confusion—because their leg pain is suddenly gone?\n\nIf you knew that was the most likely outcome—waking up and realizing the pain is just... silent—how would that change your feeling about the morning of the surgery?"
+      "asker": "I can hear how heavy this is weighing on you. Not sleeping is a sign your body is in high-alert mode. Before we talk about canceling, can you tell me: is it the surgery itself you are afraid of, or is it what happens *after* you wake up?"
     },
     {
       "turn_id": 2,
-      "user_message": "That... would be incredible. To just wake up and not feel that shooting pain? It sounds too good to be true, but reading that others have felt that does make me feel a bit lighter.",
+      "turn_name": "Identifying Root Cause",
+      "user_message": "It's waking up. I have this replay in my head where I wake up and I can't move my legs at all. Total paralysis.",
       "processing_simulation": {
-        "status": "clarifying_logic",
-        "log": "Clarifier Agent analyzing: Generating 'Future Pacing' visualization based on success data...",
-        "system_delay_ms": 2500
+        "status": "identifying_root_cause",
+        "log": "Loop Agent: Step 1 (Enquiry) Complete. Root Cause = Fear of Botched Outcome/Paralysis.",
+        "system_delay_ms": 1500
       },
-      "asker": "It isn't too good to be true; it is the standard result for this procedure. One story I found was from a patient who said, 'I walked out of the hospital four hours later and cried because I could stand up straight for the first time in a year.'\n\nI want you to hold onto *that* image. Not the scary one, but the image of standing up straight.\n\nDoes focusing on *that* specific story help quiet the noise in your stomach?"
+      "asker": "That is a terrifying image. No wonder you can't sleep if your brain keeps playing a movie of you being paralyzed. To be sure I understand—you are willing to endure the current pain because it feels safer than the *risk* of that paralysis?"
     },
     {
       "turn_id": 3,
-      "user_message": "Yeah. It actually does. Thinking about that guy walking out straight... it makes me feel hopeful instead of terrified.",
+      "turn_name": "The 'Horror Story' Bias",
+      "user_message": "Exactly. I'd rather limp forever than be in a wheelchair. I made the mistake of reading some horror stories on Reddit last night.",
       "processing_simulation": {
-        "status": "checking_loop_logic",
-        "log": "Loop Agent: Detachment check = PARTIAL. Initiating 'Double Check' simulation...",
-        "system_delay_ms": 1500
+        "status": "searching_web",
+        "log": "Web Surfer: Searching 'microdiscectomy paralysis risk statistics' vs 'Reddit horror stories'. Found: Risk < 0.3%.",
+        "system_delay_ms": 4500
       },
-      "asker": "Hope is a much better fuel than fear. But I want to be 100% sure you are ready for the big day.\n\nLet's do a quick check: Imagine it is 6:00 AM on the morning of your surgery. You are in the hospital gown, and they are wheeling you down the hall.\n\nIn that moment, are you thinking about the surgery tools, or are you thinking about that patient walking out straight?"
+      "asker": "Reddit can be a dangerous place at 3 AM. It naturally amplifies the worst 1%. I’m looking at the actual medical data right now to balance those stories. Did you know that the risk of permanent serious nerve damage in this procedure is typically less than 0.3%? That means for every 1,000 people, 997 wake up fine."
     },
     {
       "turn_id": 4,
-      "user_message": "I'm thinking about the walking. I'm thinking about being the guy who walks out straight. I'm ready to get this over with.",
+      "turn_name": "The Skepticism (Resistance)",
+      "user_message": "I know the numbers say that. But what if I'm one of the three? Someone has to be the statistic.",
+      "processing_simulation": {
+        "status": "clarifying_logic",
+        "log": "Clarifier Agent: User accepts data but rejects application. Action: Reframe Probability (Lottery Analogy).",
+        "system_delay_ms": 2800
+      },
+      "asker": "You are right. The risk is never zero. But let's look at the other side of that coin. If there is a 0.3% chance of a bad outcome, there is a 99.7% chance of the intended outcome. If I gave you a lottery ticket with a 99.7% chance of winning a million dollars, would you throw it away because you *might* lose?"
+    },
+    {
+      "turn_id": 5,
+      "turn_name": "Shifting Perspective",
+      "user_message": "Put like that, I guess not. It just feels like gambling with my body.",
+      "processing_simulation": {
+        "status": "searching_web",
+        "log": "Web Surfer: Searching 'positive patient outcomes immediate relief'. Finding emotional hooks for desire.",
+        "system_delay_ms": 3200
+      },
+      "asker": "It feels like gambling because the fear is loud. Let's look at the 'winning' ticket. I found a thread of people discussing their 'Day 1' post-op. The most common comment isn't about pain—it's about *shock* that the leg pain is gone instantly. If that was your result—waking up and the leg pain is just *gone*—would that be worth the 0.3% risk?"
+    },
+    {
+      "turn_id": 6,
+      "turn_name": "Logic Accepted, Emotion Remains",
+      "user_message": "God, yes. I haven't walked without pain in six months. I want that so bad. But my stomach is still in knots.",
+      "processing_simulation": {
+        "status": "checking_loop_logic",
+        "log": "Loop Agent: Step 2 (Understanding) = YES. Step 3 (Detachment) = NO. Triggering Detachment Metaphor.",
+        "system_delay_ms": 2000
+      },
+      "asker": "That is the conflict. Your brain wants the result, but your gut is holding onto the fear. We need to separate them. Imagine your anxiety is a noisy radio playing in the corner of the room. You can hear it, it's annoying, but does it actually stop you from walking across the room to open a door?"
+    },
+    {
+      "turn_id": 7,
+      "turn_name": "The Detachment Attempt",
+      "user_message": "No, I can still walk. It's just distracting.",
+      "processing_simulation": {
+        "status": "clarifying_logic",
+        "log": "Clarifier Agent: Applying 'Radio' metaphor to 'Driving to Hospital' scenario.",
+        "system_delay_ms": 1800
+      },
+      "asker": "Exactly. The anxiety is just noise. It is not a wall. You can proceed with the surgery *while* the radio is playing. You don't need to turn it off to get in the car. Can you picture yourself driving to the hospital even if the radio is blasting?"
+    },
+    {
+      "turn_id": 8,
+      "turn_name": "The Wobble",
+      "user_message": "I think so. But the morning of... I'm worried I'll panic when I see the gown.",
+      "processing_simulation": {
+        "status": "checking_loop_logic",
+        "log": "Loop Agent: Detachment check unstable. Triggering 'Future Pacing' visualization.",
+        "system_delay_ms": 2200
+      },
+      "asker": "That is a valid concern. Let's reprogram that moment. When you see the gown, instead of thinking 'This is the outfit of a victim,' I want you to think 'This is the uniform of an athlete about to win.' That gown means you are 2 hours away from walking pain-free. Can you reframe the gown that way?"
+    },
+    {
+      "turn_id": 9,
+      "turn_name": "The Visualization",
+      "user_message": "Uniform of an athlete... okay. I like that better. I'm going in to fix the problem, not to get hurt.",
+      "processing_simulation": {
+        "status": "checking_loop_logic",
+        "log": "Loop Agent: Re-evaluating detachment. Initiating Final Double Check.",
+        "system_delay_ms": 1500
+      },
+      "asker": "Yes. You are taking active control. You are fixing the machine. Now, let's do the final check. It's Thursday morning. You put on the gown. The 'radio' of anxiety is playing in the background. What is your primary focus?"
+    },
+    {
+      "turn_id": 10,
+      "turn_name": "The Resolution",
+      "user_message": "My focus is on the walk. I'm thinking about standing up straight afterwards. The anxiety is there, but I'm driving the car.",
       "processing_simulation": {
         "status": "loop_complete",
-        "log": "Loop Agent: Detachment check = VERIFIED. Ending loop.",
+        "log": "Loop Agent: Detachment verified. Emotion separated from Action. END LOOP.",
         "system_delay_ms": 1000
       },
-      "asker": "That is the mindset that gets the best recovery. You are focused on the finish line, not the hurdle.\n\nYou seem calm and ready. Shall we quickly go over the logistical list for the hospital so you have everything packed?"
+      "asker": "Then you are ready. You have separated the signal from the noise. I believe you're going to be one of those 99.7% success stories. Go get your life back."
     }
   ]
 }
