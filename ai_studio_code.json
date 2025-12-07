@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "session_name": "Spine Surgery Anxiety Demo",
+    "version": "1.1",
+    "description": "Demo sequence simulating agent architecture. 'Asker' key represents the final output to the user."
+  },
+  "chat_sequence": [
+    {
+      "turn_id": 1,
+      "user_message": "I know I need the surgery, but I'm paralyzed. I keep imagining waking up and not being able to move my legs. I've read so many horror stories.",
+      "processing_simulation": {
+        "status": "searching_web",
+        "log": "Web Surfer Agent searching: 'L4-L5 microdiscectomy success stories'...",
+        "system_delay_ms": 4000
+      },
+      "asker": "It is completely normal to be scared. The internet is very good at amplifying the 'horror stories' because those are the people who post the most.\n\nHowever, I’ve been looking at the actual patient data to see what is most likely to happen. Did you know that on patient forums, the most common thing people report upon waking up is *not* pain, but confusion—because their leg pain is suddenly gone?\n\nIf you knew that was the most likely outcome—waking up and realizing the pain is just... silent—how would that change your feeling about the morning of the surgery?"
+    },
+    {
+      "turn_id": 2,
+      "user_message": "That... would be incredible. To just wake up and not feel that shooting pain? It sounds too good to be true, but reading that others have felt that does make me feel a bit lighter.",
+      "processing_simulation": {
+        "status": "clarifying_logic",
+        "log": "Clarifier Agent analyzing: Generating 'Future Pacing' visualization based on success data...",
+        "system_delay_ms": 2500
+      },
+      "asker": "It isn't too good to be true; it is the standard result for this procedure. One story I found was from a patient who said, 'I walked out of the hospital four hours later and cried because I could stand up straight for the first time in a year.'\n\nI want you to hold onto *that* image. Not the scary one, but the image of standing up straight.\n\nDoes focusing on *that* specific story help quiet the noise in your stomach?"
+    },
+    {
+      "turn_id": 3,
+      "user_message": "Yeah. It actually does. Thinking about that guy walking out straight... it makes me feel hopeful instead of terrified.",
+      "processing_simulation": {
+        "status": "checking_loop_logic",
+        "log": "Loop Agent: Detachment check = PARTIAL. Initiating 'Double Check' simulation...",
+        "system_delay_ms": 1500
+      },
+      "asker": "Hope is a much better fuel than fear. But I want to be 100% sure you are ready for the big day.\n\nLet's do a quick check: Imagine it is 6:00 AM on the morning of your surgery. You are in the hospital gown, and they are wheeling you down the hall.\n\nIn that moment, are you thinking about the surgery tools, or are you thinking about that patient walking out straight?"
+    },
+    {
+      "turn_id": 4,
+      "user_message": "I'm thinking about the walking. I'm thinking about being the guy who walks out straight. I'm ready to get this over with.",
+      "processing_simulation": {
+        "status": "loop_complete",
+        "log": "Loop Agent: Detachment check = VERIFIED. Ending loop.",
+        "system_delay_ms": 1000
+      },
+      "asker": "That is the mindset that gets the best recovery. You are focused on the finish line, not the hurdle.\n\nYou seem calm and ready. Shall we quickly go over the logistical list for the hospital so you have everything packed?"
+    }
+  ]
+}
