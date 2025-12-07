@@ -131,19 +131,31 @@ const ChatInterface = () => {
     return (
         <div className="flex flex-col h-full relative">
             {/* Header */}
-            <div className="h-16 px-8 flex items-center justify-between border-b border-white/20 bg-white/10 backdrop-blur-md sticky top-0 z-10">
-                <div>
+            {/* Header */}
+            <div className="h-20 px-8 flex items-center justify-between border-b border-white/20 bg-white/10 backdrop-blur-md sticky top-0 z-10">
+                {/* Left: Session Info */}
+                <div className="flex flex-col z-20">
                     <h2 className="text-lg font-semibold text-slate-700">Asker Agent</h2>
-                    <div className="flex items-center gap-3">
-                        <p className="text-xs text-purple-600 font-mono">Session: {chatSequence.meta.session_name}</p>
+                    <p className="text-xs text-purple-600 font-mono">Session: {chatSequence.meta.session_name}</p>
+                </div>
+
+                {/* Center: Glorious Turn Indicator */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10">
+                    <div className="flex items-center gap-2 bg-white/60 backdrop-blur-md px-6 py-2 rounded-2xl border border-white/50 shadow-lg shadow-purple-500/5">
+                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Turn</span>
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-rose-500 drop-shadow-sm">
+                                {currentStep + 1}
+                            </span>
+                            <span className="text-sm font-bold text-slate-400">/ {totalSteps}</span>
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-4">
-                    <span className="text-sm font-bold text-slate-600 bg-white/50 px-3 py-1.5 rounded-lg border border-white/40 shadow-sm">
-                        Turn <span className="text-purple-600 text-base">{currentStep + 1}</span> / {totalSteps}
-                    </span>
-                    <div className="text-[10px] text-slate-400 font-mono hidden md:block">
-                        Press 'A' for Prev • 'D' for Next
+
+                {/* Right: Controls Hint */}
+                <div className="flex items-center gap-4 z-20">
+                    <div className="text-[10px] text-slate-400 font-mono hidden md:block bg-white/30 px-3 py-1 rounded-full border border-white/20">
+                        Use <span className="font-bold text-slate-600">A</span> / <span className="font-bold text-slate-600">D</span> to navigate
                     </div>
                 </div>
             </div>
