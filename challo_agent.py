@@ -152,17 +152,15 @@ async def main():
     )
     session_id = session.id
 
-    print("--- STARTING CHAT SYSTEM ---")
+    print("--- STARTING CHAT SYSTEM (Type 'quit' to exit) ---")
     
-    # Mocking a conversation flow
-    user_inputs = [
-        "I am feeling very anxious about my public speaking tomorrow.",
-        "I understand that fear means I care about it, but it's still scary.",
-        "Yes, I can see the speech is just an action, separate from my fear."
-    ]
-
-    for user_text in user_inputs:
-        print(f"\nUSER: {user_text}")
+    while True:
+        try:
+            user_text = input("\nUSER: ")
+            if user_text.lower() in ("quit", "exit"):
+                break
+        except EOFError:
+            break
         
         # The runner sends the input to the LoopAgent (root), which decides what to do
         async for event in runner.run_async(
