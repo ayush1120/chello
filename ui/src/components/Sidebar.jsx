@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bot, Brain } from 'lucide-react';
+import { Bot, Brain, Layout } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
@@ -26,6 +26,12 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                     label="Chat"
                     isActive={activeTab === 'chat'}
                     onClick={() => setActiveTab('chat')}
+                />
+                <NavItem
+                    icon={<Layout size={24} />}
+                    label="Templates"
+                    isActive={activeTab === 'templates'}
+                    onClick={() => setActiveTab('templates')}
                 />
                 <NavItem
                     icon={<Brain size={24} />}
