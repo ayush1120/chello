@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, User, Send, ChevronDown, ChevronUp, Sparkles, Activity, Search, Brain, CheckCircle } from 'lucide-react';
-import chatData from '../data/chat_sequence.json';
 
 const InternalThoughtTimeline = ({ simulation }) => {
     // Normalize to array
@@ -70,8 +69,24 @@ const ChatInterface = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const messagesEndRef = useRef(null);
     const [input, setInput] = useState('');
+    const [chatSequence, setChatSequence] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const totalSteps = chatData.chat_sequence.length;
+    // Fetch data at runtime
+    useEffect(() => {
+        fetch('/ai_studio_code.json')
+            .then(res => res.json())
+            .then(data => {
+                setChatSequence(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load chat data", err);
+                setLoading(false);
+            });
+    }, []);
+
+    const totalSteps = chatSequence?.chat_sequence?.length || 0;
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -79,10 +94,12 @@ const ChatInterface = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [expandedThoughts, currentStep]);
+    }, [expandedThoughts, currentStep, chatSequence]);
 
     // Key Binding Listener for Presentation Mode
     useEffect(() => {
+        if (!chatSequence) return;
+
         const handleKeyDown = (e) => {
             // Only trigger if not typing in an input
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -96,7 +113,7 @@ const ChatInterface = () => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [totalSteps]);
+    }, [totalSteps, chatSequence]);
 
     const toggleThoughts = (turnId) => {
         setExpandedThoughts(prev => ({
@@ -105,8 +122,11 @@ const ChatInterface = () => {
         }));
     };
 
+    if (loading) return <div className="flex items-center justify-center h-full text-slate-400">Loading simulation...</div>;
+    if (!chatSequence) return <div className="flex items-center justify-center h-full text-red-400">Error loading data</div>;
+
     // Slice data for presentation
-    const visibleTurns = chatData.chat_sequence.slice(0, currentStep + 1);
+    const visibleTurns = chatSequence.chat_sequence.slice(0, currentStep + 1);
 
     return (
         <div className="flex flex-col h-full relative">
@@ -115,14 +135,16 @@ const ChatInterface = () => {
                 <div>
                     <h2 className="text-lg font-semibold text-slate-700">Asker Agent</h2>
                     <div className="flex items-center gap-3">
-                        <p className="text-xs text-purple-600 font-mono">Session: {chatData.meta.session_name}</p>
-                        <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
-                            Turn {currentStep + 1} / {totalSteps}
-                        </span>
+                        <p className="text-xs text-purple-600 font-mono">Session: {chatSequence.meta.session_name}</p>
                     </div>
                 </div>
-                <div className="text-[10px] text-slate-400 font-mono hidden md:block">
-                    Press 'A' for Prev • 'D' for Next
+                <div className="flex items-center gap-4">
+                    <span className="text-sm font-bold text-slate-600 bg-white/50 px-3 py-1.5 rounded-lg border border-white/40 shadow-sm">
+                        Turn <span className="text-purple-600 text-base">{currentStep + 1}</span> / {totalSteps}
+                    </span>
+                    <div className="text-[10px] text-slate-400 font-mono hidden md:block">
+                        Press 'A' for Prev • 'D' for Next
+                    </div>
                 </div>
             </div>
 

@@ -1,9 +1,12 @@
 import React from 'react';
 
+import mermaid from 'mermaid';
+
 const AgentVisualizer = () => {
-    // This is a placeholder for the mermaid diagram visualization.
-    // In a real implementation, we would use a library like mermaid.js to render the graph provided in the prompt.
-    // For now, we will create a CSS-based static representation or mock of the nodes.
+    React.useEffect(() => {
+        mermaid.initialize({ startOnLoad: true });
+        mermaid.contentLoaded();
+    }, []);
 
     return (
         <div className="h-full flex flex-col bg-transparent">
@@ -15,56 +18,75 @@ const AgentVisualizer = () => {
                 {/* Background Grid - Darker for visibility on light bg */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
-                <div className="relative z-10 w-full max-w-5xl h-[600px] border border-white/40 rounded-3xl bg-white/30 backdrop-blur-md p-8 flex flex-col justify-between shadow-lg">
 
-                    {/* Top Layer: Loop Logic */}
-                    <div className="flex justify-center gap-8 mb-8">
-                        <div className="p-4 rounded-xl border border-rose-500/30 bg-rose-50/50 backdrop-blur-md shadow-sm">
-                            <h3 className="text-rose-600 font-mono text-sm mb-2">Loop Logic</h3>
-                            <div className="flex gap-4">
-                                {['Check Enquiry', 'Check Understanding', 'Check Feedback'].map((step, i) => (
-                                    <div key={i} className="px-3 py-2 rounded-lg bg-rose-100 border border-rose-200 text-xs text-rose-700">
-                                        {step}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                <div className="mermaid flex justify-center w-full h-full text-sm font-sans" key="mermaid-diagram">
+                    {`graph BT
+    %% --- Styles ---
+    classDef redAgent fill:#fff,stroke:#ff0000,stroke-width:2px,color:#000;
+    classDef blackAgent fill:#fff,stroke:#000,stroke-width:2px,color:#000;
+    classDef contextBox fill:#f4faff,stroke:#007bff,stroke-width:2px;
+    classDef logicStep fill:#ffeded,stroke:#ff0000,stroke-dasharray: 5 5,color:#333;
 
-                    {/* Middle Layer: Agents */}
-                    <div className="flex justify-center items-center gap-12">
-                        {/* Clarifier */}
-                        <div className="w-40 h-40 rounded-2xl border border-rose-200 bg-white/80 flex flex-col items-center justify-center shadow-md shadow-rose-200/50">
-                            <span className="text-rose-500 font-bold mb-1">Clarifier</span>
-                            <span className="text-[10px] text-slate-500 text-center px-2">Processing & Options</span>
-                        </div>
+    %% --- 1. Global Context Layer (Bottom Blue Box) ---
+    subgraph Global_Context [Global Context]
+        direction LR
+        %% User interacts here
+        ChatContext[("<b>CHAT CONTEXT</b><br/>(Conversation History)")]:::contextBox
+        
+        %% Internal processing happens here
+        InternalContext[("<b>INTERNAL CONTEXT</b><br/>(Facts & Research)")]:::contextBox
+    end
 
-                        {/* Asker (Central) */}
-                        <div className="w-48 h-48 rounded-full border-2 border-purple-400 bg-white flex flex-col items-center justify-center shadow-xl shadow-purple-500/20 relative">
-                            <div className="absolute -inset-2 rounded-full border border-purple-400/30 animate-pulse"></div>
-                            <span className="text-purple-600 font-bold text-lg mb-1">Asker Agent</span>
-                            <span className="text-xs text-slate-500 text-center px-4">Calms • Enquires • Relays</span>
-                        </div>
+    %% --- 2. The User ---
+    User(("<b>USER</b><br/>(Customer)")):::blackAgent
 
-                        {/* Web Surfer */}
-                        <div className="w-40 h-40 rounded-2xl border border-rose-200 bg-white/80 flex flex-col items-center justify-center shadow-md shadow-rose-200/50">
-                            <span className="text-rose-500 font-bold mb-1">Web Surfer</span>
-                            <span className="text-[10px] text-slate-500 text-center px-2">Internal Research</span>
-                        </div>
-                    </div>
+    %% --- 3. The Agents ---
+    %% Asker Agent
+    Asker("<b>Asker Agent</b><br/>1. Makes you calm<br/>2. Asks questions/enquiry<br/>3. Relays options"):::blackAgent
 
-                    {/* Bottom Layer: Context */}
-                    <div className="mt-8 grid grid-cols-2 gap-8">
-                        <div className="h-32 rounded-xl border-2 border-purple-200 bg-purple-50/50 p-4 flex items-center justify-center flex-col shadow-sm">
-                            <span className="text-purple-600 font-bold">CHAT CONTEXT</span>
-                            <span className="text-xs text-purple-400">Conversation History</span>
-                        </div>
-                        <div className="h-32 rounded-xl border-2 border-cyan-200 bg-cyan-50/50 p-4 flex items-center justify-center flex-col shadow-sm">
-                            <span className="text-cyan-600 font-bold">INTERNAL CONTEXT</span>
-                            <span className="text-xs text-cyan-400">Facts & Research</span>
-                        </div>
-                    </div>
+    %% Internal Agents
+    Clarifier("<b>Clarifier</b><br/>(Internal Processing)<br/>Guided -> Generates options"):::redAgent
+    WebSurfer("<b>Web Surfer</b><br/>(Internal Research)"):::redAgent
 
+    %% End Node
+    EndNode(("<b>END</b>")):::redAgent
+
+    %% --- 4. The Loop Logic Details ---
+    subgraph Loop_Logic [Loop Agent Logic]
+        direction TB
+        LoopEntry(("<b>Loop<br/>Check</b>")):::redAgent
+        
+        Step1["<b>1. Check Enquiry</b><br/>Has fear/desire been calculated?"]:::logicStep
+        Step2["<b>2. Check Understanding</b><br/>Does user know fear=feel better?"]:::logicStep
+        Step3["<b>3. Check Feedback</b><br/>User detached emotion from action?"]:::logicStep
+    end
+
+    %% --- 5. Connections ---
+
+    %% User interaction
+    User --> ChatContext
+
+    %% --- Asker Flow ---
+    ChatContext <--> Asker
+    Asker --> EndNode
+
+    %% --- Loop Agent Flow ---
+    %% Reads from Chat, processes steps, triggers Asker
+    ChatContext --> LoopEntry
+    LoopEntry --> Step1
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 -->|"Checks Passed"| Asker
+
+    %% --- Clarifier Flow (Read Global / Write Internal) ---
+    ChatContext -->|"Reads"| Clarifier
+    InternalContext -->|"Reads"| Clarifier
+    Clarifier -->|"Writes"| InternalContext
+
+    %% --- Web Surfer Flow (Read Global / Write Internal) ---
+    ChatContext -->|"Reads"| WebSurfer
+    InternalContext -->|"Reads"| WebSurfer
+    WebSurfer -->|"Writes"| InternalContext`}
                 </div>
             </div>
         </div>
