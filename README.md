@@ -1,6 +1,6 @@
-# Challo - Google ADK Agent
+# Chalo - Google ADK Agent
 
-"Challo" (Let's Go!) is a demo agent Application using the Google Agent Development Kit.
+"Chalo" (Let's Go!) is a demo agent Application using the Google Agent Development Kit.
 
 ## Quick Start
 

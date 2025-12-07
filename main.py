@@ -28,7 +28,7 @@ def main():
         model = Gemini(model="gemini-1.5-flash", api_key=api_key) 
         
         # Initialize Agent with the model
-        agent = Agent(model=model, name="challo_agent")
+        agent = Agent(model=model, name="chalo_agent")
         
         print(f"Successfully imported google-adk and initialized Agent class: {agent.name}")
         print("Ready to build!")

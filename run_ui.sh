@@ -10,5 +10,5 @@ if [ ! -d "node_modules" ]; then
 fi
 
 # Run the development server
-echo "Starting Challo UI..."
+echo "Starting Chalo UI..."
 npm run dev

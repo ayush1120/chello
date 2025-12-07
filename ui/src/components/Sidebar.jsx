@@ -15,7 +15,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
                     <span className="text-white font-bold text-lg">C</span>
                 </div>
                 <span className="ml-3 font-bold text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                    Challo Agent
+                    Chalo Agent
                 </span>
             </div>
 
