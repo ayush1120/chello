@@ -11,11 +11,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         >
             {/* Logo Area */}
             <div className="h-16 w-full flex items-center justify-center group-hover:justify-start group-hover:px-6 transition-all border-b border-white/20">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-400 to-purple-500 flex items-center justify-center shadow-md shadow-purple-500/20">
-                    <span className="text-white font-bold text-lg">C</span>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-md shadow-orange-500/20 bg-white/50">
+                    <img src="/chalo_logo.png" alt="Chalo Logo" className="w-6 h-6 object-contain" />
                 </div>
                 <span className="ml-3 font-bold text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
-                    Chalo Agent
+                    Chalo
                 </span>
             </div>
 
