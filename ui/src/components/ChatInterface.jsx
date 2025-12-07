@@ -140,15 +140,17 @@ const ChatInterface = () => {
                 </div>
 
                 {/* Center: Glorious Turn Indicator */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10">
-                    <div className="flex items-center gap-2 bg-white/60 backdrop-blur-md px-6 py-2 rounded-2xl border border-white/50 shadow-lg shadow-purple-500/5">
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Turn</span>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-rose-500 drop-shadow-sm">
-                                {currentStep + 1}
-                            </span>
-                            <span className="text-sm font-bold text-slate-400">/ {totalSteps}</span>
-                        </div>
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 w-full max-w-lg pointer-events-none">
+                    <div className="flex flex-col items-center justify-center bg-white/80 backdrop-blur-xl px-8 py-3 rounded-3xl border border-white/60 shadow-xl shadow-purple-500/10 transition-all duration-300">
+                        {/* Eyebrow: Turn Counter */}
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
+                            Turn {currentStep + 1} / {totalSteps}
+                        </span>
+
+                        {/* Main Title: Turn Name */}
+                        <h1 className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-rose-500 to-amber-500 drop-shadow-sm text-center leading-tight whitespace-nowrap px-4">
+                            {chatSequence?.chat_sequence[currentStep]?.turn_name || `Turn ${currentStep + 1}`}
+                        </h1>
                     </div>
                 </div>
 
